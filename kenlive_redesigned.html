@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KENLIVE</title>
+    <meta name="description" content="Kenya's Premier News Source">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Georgia:wght@400;700&family=Arial:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #DC143C;
+            --newspaper-black: #1a1a1a;
+            --text-black: #2c2c2c;
+            --pure-white: #ffffff;
+            --light-gray: #f8f9fa;
+            --border-gray: #e5e5e5;
+            --medium-gray: #666666;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --header-font: 'Playfair Display', serif;
+            --body-font: 'Georgia', serif;
+            --sans-font: 'Arial', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            color: var(--text-black);
+            background: var(--pure-white);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--newspaper-black);
+            color: var(--pure-white);
+            padding: 8px 0;
+            font-family: var(--sans-font);
+            font-size: 12px;
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .top-bar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Header */
+        .newspaper-header {
+            background: var(--pure-white);
+            border-bottom: 1px solid var(--border-gray);
+            padding: 30px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .newspaper-title {
+            font-family: var(--header-font);
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--newspaper-black);
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 5px;
+        }
+
+        .newspaper-date {
+            font-family: var(--sans-font);
+            font-size: 14px;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .newspaper-tagline {
+            font-family: var(--sans-font);
+            font-style: italic;
+            font-size: 16px;
+            color: var(--medium-gray);
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: var(--newspaper-black);
+            border-top: 3px solid var(--primary-red);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-item {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-family: var(--sans-font);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+            border-right: 1px solid #333;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary-red);
+        }
+
+        .nav-item:first-child {
+            background: var(--primary-red);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+
+        /* Breaking News */
+        .breaking-news-bar {
+            background: var(--primary-red);
+            color: var(--pure-white);
+            padding: 10px 0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: var(--sans-font);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Featured Article Section */
+        .featured-section {
+            border: 1px solid var(--border-gray);
+            margin-bottom: 30px;
+        }
+
+        .featured-header {
+            background: var(--newspaper-black);
+            color: var(--pure-white);
+            padding: 10px 15px;
+            font-family: var(--sans-font);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-content {
+            padding: 20px;
+            text-align: center;
+            color: var(--medium-gray);
+            font-style: italic;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .featured-article {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .featured-article:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .featured-title {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--newspaper-black);
+        }
+
+        .featured-excerpt {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-black);
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            font-family: var(--sans-font);
+            font-size: 12px;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 40px;
+            border: 1px solid var(--border-gray);
+        }
+
+        .category-header {
+            background: var(--newspaper-black);
+            color: var(--pure-white);
+            padding: 12px 20px;
+            font-family: var(--sans-font);
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-content {
+            padding: 20px;
+        }
+
+        .category-empty {
+            text-align: center;
+            color: var(--medium-gray);
+            font-style: italic;
+            padding: 40px 20px;
+        }
+
+        .category-articles {
+            display: grid;
+            gap: 20px;
+        }
+
+        .category-article {
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-article:hover {
+            background: var(--light-gray);
+            padding: 15px;
+            margin: -15px;
+        }
+
+        .category-article:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .category-article-title {
+            font-family: var(--header-font);
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            color: var(--newspaper-black);
+        }
+
+        .category-article-excerpt {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-black);
+            margin-bottom: 5px;
+        }
+
+        .category-article-meta {
+            font-family: var(--sans-font);
+            font-size: 11px;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-section {
+            border: 1px solid var(--border-gray);
+        }
+
+        .sidebar-header {
+            background: var(--newspaper-black);
+            color: var(--pure-white);
+            padding: 12px 15px;
+            font-family: var(--sans-font);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-content {
+            padding: 15px;
+        }
+
+        /* Weather Widget */
+        .weather-widget {
+            text-align: center;
+        }
+
+        .weather-temp {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--newspaper-black);
+            margin-bottom: 5px;
+        }
+
+        .weather-desc {
+            font-family: var(--sans-font);
+            font-size: 14px;
+            color: var(--medium-gray);
+            margin-bottom: 15px;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-family: var(--sans-font);
+            font-size: 12px;
+        }
+
+        .weather-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Editorial */
+        .editorial-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .editorial-title {
+            font-family: var(--header-font);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--newspaper-black);
+        }
+
+        /* Market Watch */
+        .market-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dotted var(--border-gray);
+            font-family: var(--sans-font);
+            font-size: 13px;
+        }
+
+        .market-item:last-child {
+            border-bottom: none;
+        }
+
+        .market-change {
+            font-weight: 600;
+        }
+
+        .market-change.positive {
+            color: #22c55e;
+        }
+
+        .market-change.negative {
+            color: var(--primary-red);
+        }
+
+        /* Classifieds */
+        .classified-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dotted var(--border-gray);
+        }
+
+        .classified-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .classified-title {
+            font-family: var(--sans-font);
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--newspaper-black);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .classified-text {
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--text-black);
+        }
+
+        /* Loading States */
+        .loading-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            color: var(--medium-gray);
+            font-style: italic;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--border-gray);
+            border-top: 3px solid var(--primary-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--pure-white);
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            position: relative;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: var(--pure-white);
+            padding: 20px 30px;
+            border-bottom: 2px solid var(--primary-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-black);
+            transition: color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-red);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .full-article-title {
+            font-family: var(--header-font);
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--newspaper-black);
+            margin-bottom: 15px;
+        }
+
+        .full-article-meta {
+            font-family: var(--sans-font);
+            font-size: 14px;
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .full-article-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-gray);
+        }
+
+        .full-article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-black);
+        }
+
+        .full-article-content h2 {
+            font-family: var(--header-font);
+            font-size: 1.6rem;
+            color: var(--newspaper-black);
+            margin: 25px 0 15px 0;
+        }
+
+        .full-article-content p {
+            margin-bottom: 15px;
+        }
+
+        /* Advanced WordPress-style Editor */
+        .editor-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+        }
+
+        .editor-panel.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .editor-container {
+            background: var(--pure-white);
+            width: 95%;
+            max-width: 1400px;
+            max-height: 95vh;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .editor-header {
+            padding: 20px 30px;
+            border-bottom: 2px solid var(--primary-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light-gray);
+        }
+
+        .editor-title {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--newspaper-black);
+        }
+
+        .editor-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        .editor-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .editor-sidebar {
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 6px;
+            height: fit-content;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--sans-font);
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--newspaper-black);
+            font-size: 14px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-gray);
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: var(--body-font);
+            transition: border-color 0.3s ease;
+            background: var(--pure-white);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+        }
+
+        .title-input {
+            font-size: 1.5rem;
+            font-family: var(--header-font);
+            font-weight: 600;
+            padding: 15px;
+        }
+
+        /* Advanced WordPress-style Toolbar */
+        .wp-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            margin-bottom: 0;
+            background: var(--light-gray);
+            padding: 10px;
+            border: 2px solid var(--border-gray);
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .toolbar-group {
+            display: flex;
+            gap: 2px;
+            padding-right: 10px;
+            margin-right: 10px;
+            border-right: 1px solid var(--border-gray);
+        }
+
+        .toolbar-group:last-child {
+            border-right: none;
+            margin-right: 0;
+            padding-right: 0;
+        }
+
+        .wp-toolbar-btn {
+            background: var(--pure-white);
+            border: 1px solid var(--border-gray);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: var(--sans-font);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .wp-toolbar-btn:hover {
+            background: var(--primary-red);
+            color: var(--pure-white);
+            border-color: var(--primary-red);
+        }
+
+        .wp-toolbar-btn.active {
+            background: var(--primary-red);
+            color: var(--pure-white);
+            border-color: var(--primary-red);
+        }
+
+        .wp-editor {
+            min-height: 500px;
+            padding: 20px;
+            border: 2px solid var(--border-gray);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            font-size: 16px;
+            line-height: 1.6;
+            font-family: var(--body-font);
+            background: var(--pure-white);
+            outline: none;
+        }
+
+        .wp-editor:focus {
+            border-color: var(--primary-red);
+        }
+
+        .wp-editor h1, .wp-editor h2, .wp-editor h3 {
+            font-family: var(--header-font);
+            color: var(--newspaper-black);
+            margin: 20px 0 10px 0;
+        }
+
+        .wp-editor h2 {
+            font-size: 1.5rem;
+        }
+
+        .wp-editor h3 {
+            font-size: 1.3rem;
+        }
+
+        .wp-editor p {
+            margin-bottom: 15px;
+        }
+
+        .wp-editor img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .wp-editor blockquote {
+            border-left: 4px solid var(--primary-red);
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--medium-gray);
+        }
+
+        /* Image Upload */
+        .image-upload-area {
+            border: 3px dashed var(--border-gray);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary-red);
+            background: rgba(220, 20, 60, 0.05);
+        }
+
+        .image-upload-area.dragover {
+            border-color: var(--primary-red);
+            background: rgba(220, 20, 60, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--medium-gray);
+            margin-bottom: 15px;
+        }
+
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 2px solid var(--border-gray);
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Editor Sidebar Sections */
+        .editor-sidebar-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .editor-sidebar-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .editor-sidebar-title {
+            font-family: var(--sans-font);
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--newspaper-black);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background: var(--primary-red);
+            color: var(--pure-white);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .editor-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-gray);
+            background: var(--light-gray);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: var(--sans-font);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: var(--pure-white);
+        }
+
+        .btn-primary:hover {
+            background: #b91c3c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-black);
+            border: 2px solid var(--border-gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-gray);
+            border-color: var(--text-black);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--primary-red);
+            color: var(--pure-white);
+            padding: 15px 25px;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            font-family: var(--sans-font);
+            font-weight: 500;
+        }
+
+        .toast.success {
+            background: #22c55e;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        /* Footer */
+        .newspaper-footer {
+            background: var(--newspaper-black);
+            color: var(--pure-white);
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 3px solid var(--primary-red);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--sans-font);
+            font-size: 12px;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .footer-link {
+            color: var(--pure-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-red);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-link {
+            color: var(--pure-white);
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--primary-red);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px 15px;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+
+            .newspaper-title {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .nav-item {
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+
+            .editor-body {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .editor-sidebar {
+                order: -1;
+            }
+
+            .toolbar-group {
+                margin-right: 5px;
+                padding-right: 5px;
+            }
+
+            .wp-toolbar-btn {
+                min-width: 32px;
+                height: 32px;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Print Styles */
+        @media print {
+            .top-bar, .main-nav, .editor-panel, .modal, .toast {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .main-container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-bar-left">
+                <span id="currentDate"></span>
+                <span>Kenya's Premier News Source</span>
+            </div>
+            <div class="top-bar-right">
+                <span>Issue No. 1</span>
+                <span>Price: KSh 50</span>
+                <span id="adminControls" style="display: none;">
+                    <a href="#" class="footer-link" id="newArticleFooter">New Article</a>
+                    <a href="#" class="footer-link" id="logoutFooter">Logout</a>
+                </span>
+                <a href="#" class="footer-link" id="adminLoginFooter">Admin Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="newspaper-header">
+        <div class="header-container">
+            <h1 class="newspaper-title">KENLIVE</h1>
+            <div class="newspaper-date" id="currentDateFull"></div>
+            <p class="newspaper-tagline">Kenya's Premier News Source</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#" class="nav-item active">FRONT PAGE</a>
+            <a href="#" class="nav-item">POLITICS</a>
+            <a href="#" class="nav-item">BUSINESS</a>
+            <a href="#" class="nav-item">SPORTS</a>
+            <a href="#" class="nav-item">TECHNOLOGY</a>
+            <a href="#" class="nav-item">OPINION</a>
+            <a href="#" class="nav-item">LIFESTYLE</a>
+            <a href="#" class="nav-item">WEATHER</a>
+        </div>
+    </nav>
+
+    <!-- Breaking News Bar -->
+    <div class="breaking-news-bar" id="breakingNews">
+        <div class="spinner" id="loadingSpinner"></div>
+        <span id="loadingText">Loading today's news...</span>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <div class="main-content">
+            <!-- Featured Article Section -->
+            <section class="featured-section">
+                <div class="featured-header">BREAKING NEWS</div>
+                <div class="featured-content" id="featuredContent">
+                    <p>Check back for the latest breaking news from Kenya...</p>
+                </div>
+            </section>
+
+            <!-- Politics Section -->
+            <section class="category-section" id="politicsSection">
+                <div class="category-header">
+                    <i class="fas fa-landmark"></i>
+                    POLITICS
+                </div>
+                <div class="category-content">
+                    <div class="category-empty">No articles available in this section.</div>
+                </div>
+            </section>
+
+            <!-- Business Section -->
+            <section class="category-section" id="businessSection">
+                <div class="category-header">
+                    <i class="fas fa-chart-line"></i>
+                    BUSINESS
+                </div>
+                <div class="category-content">
+                    <div class="category-empty">No articles available in this section.</div>
+                </div>
+            </section>
+
+            <!-- Sports Section -->
+            <section class="category-section" id="sportsSection">
+                <div class="category-header">
+                    <i class="fas fa-futbol"></i>
+                    SPORTS
+                </div>
+                <div class="category-content">
+                    <div class="category-empty">No articles available in this section.</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Weather Widget -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">Today's Weather</div>
+                <div class="sidebar-content">
+                    <div class="weather-widget">
+                        <div class="weather-temp" id="weatherTemp">25°F</div>
+                        <div class="weather-desc" id="weatherDesc">Partly Cloudy</div>
+                        <div class="weather-details">
+                            <div class="weather-item">
+                                <span>High:</span>
+                                <span id="weatherHigh">28°</span>
+                            </div>
+                            <div class="weather-item">
+                                <span>Low:</span>
+                                <span id="weatherLow">18°</span>
+                            </div>
+                            <div class="weather-item">
+                                <span>Humidity:</span>
+                                <span id="weatherHumidity">65%</span>
+                            </div>
+                            <div class="weather-item">
+                                <span>Wind:</span>
+                                <span id="weatherWind">12 km/h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editorial -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">Editorial</div>
+                <div class="sidebar-content">
+                    <div class="editorial-content">
+                        <div class="editorial-title">The Path Forward: Building Tomorrow's Foundation</div>
+                        <p>As Kenya continues to navigate the complexities of modern governance, we must remember our democratic values and the importance of transparent, accountable leadership.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Watch -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">Market Watch</div>
+                <div class="sidebar-content">
+                    <div class="market-item">
+                        <span>NSEASI</span>
+                        <span class="market-change positive">+0.75%</span>
+                    </div>
+                    <div class="market-item">
+                        <span>NSE 20</span>
+                        <span class="market-change negative">-0.23%</span>
+                    </div>
+                    <div class="market-item">
+                        <span>FTSE/NSE 25</span>
+                        <span class="market-change positive">+1.2%</span>
+                    </div>
+                    <div class="market-item">
+                        <span>USD/KES</span>
+                        <span class="market-change negative">-0.15%</span>
+                    </div>
+                    <div class="market-item">
+                        <span>NASDAQ</span>
+                        <span class="market-change positive">+2.1%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classifieds -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">Classifieds</div>
+                <div class="sidebar-content">
+                    <div class="classified-item">
+                        <div class="classified-title">FOR SALE</div>
+                        <div class="classified-text">2020 Toyota Prado, excellent condition, low mileage. Contact: 0700-123-456</div>
+                    </div>
+                    <div class="classified-item">
+                        <div class="classified-title">JOB OPENING</div>
+                        <div class="classified-text">Experienced accountant needed for growing firm in Westlands. Email: jobs@company.co.ke</div>
+                    </div>
+                    <div class="classified-item">
+                        <div class="classified-title">REAL ESTATE</div>
+                        <div class="classified-text">3-bedroom apartment for rent in Kileleshwa. Modern amenities, secure compound.</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Article Modal -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Full Article</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Article content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Login</h3>
+                <button class="close-modal" id="closeLogin">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-input" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced WordPress-style Editor Panel -->
+    <div class="editor-panel" id="editorPanel">
+        <div class="editor-container">
+            <div class="editor-header">
+                <h2 class="editor-title">Write New Article</h2>
+                <button class="close-modal" id="closeEditor">&times;</button>
+            </div>
+            <div class="editor-body">
+                <div class="editor-main">
+                    <form id="articleForm">
+                        <!-- Article Title -->
+                        <div class="form-group">
+                            <label class="form-label" for="articleTitle">Headline</label>
+                            <input type="text" id="articleTitle" class="form-input title-input" placeholder="Enter compelling headline here..." required>
+                        </div>
+                        
+                        <!-- Featured Image -->
+                        <div class="form-group">
+                            <label class="form-label">Featured Image</label>
+                            <div class="image-upload-area" id="featuredImageUpload">
+                                <div class="upload-icon"><i class="fas fa-camera"></i></div>
+                                <p><strong>Click to upload featured image</strong></p>
+                                <p>or drag and drop your image here</p>
+                                <input type="file" id="featuredImageInput" accept="image/*" style="display: none;">
+                            </div>
+                            <img id="featuredImagePreview" class="image-preview" style="display: none;">
+                            <input type="hidden" id="featuredImageUrl">
+                        </div>
+
+                        <!-- Content Editor -->
+                        <div class="form-group">
+                            <label class="form-label">Article Content</label>
+                            <div class="wp-toolbar">
+                                <!-- Text Formatting -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="bold" title="Bold"><i class="fas fa-bold"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="italic" title="Italic"><i class="fas fa-italic"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="underline" title="Underline"><i class="fas fa-underline"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="strikeThrough" title="Strikethrough"><i class="fas fa-strikethrough"></i></button>
+                                </div>
+                                
+                                <!-- Headings -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="h1" title="Heading 1">H1</button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="h2" title="Heading 2">H2</button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="h3" title="Heading 3">H3</button>
+                                </div>
+                                
+                                <!-- Alignment -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="justifyLeft" title="Align Left"><i class="fas fa-align-left"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="justifyCenter" title="Align Center"><i class="fas fa-align-center"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="justifyRight" title="Align Right"><i class="fas fa-align-right"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="justifyFull" title="Justify"><i class="fas fa-align-justify"></i></button>
+                                </div>
+                                
+                                <!-- Lists -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="insertOrderedList" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="outdent" title="Decrease Indent"><i class="fas fa-outdent"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="indent" title="Increase Indent"><i class="fas fa-indent"></i></button>
+                                </div>
+                                
+                                <!-- Media & Links -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="createLink" title="Insert Link"><i class="fas fa-link"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="unlink" title="Remove Link"><i class="fas fa-unlink"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" id="insertImageBtn" title="Insert Image"><i class="fas fa-image"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="insertHorizontalRule" title="Horizontal Rule"><i class="fas fa-minus"></i></button>
+                                </div>
+                                
+                                <!-- Special -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="formatBlock" data-value="blockquote" title="Quote"><i class="fas fa-quote-left"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="formatBlock" data-value="pre" title="Code Block"><i class="fas fa-code"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="removeFormat" title="Remove Formatting"><i class="fas fa-remove-format"></i></button>
+                                </div>
+                                
+                                <!-- Undo/Redo -->
+                                <div class="toolbar-group">
+                                    <button type="button" class="wp-toolbar-btn" data-command="undo" title="Undo"><i class="fas fa-undo"></i></button>
+                                    <button type="button" class="wp-toolbar-btn" data-command="redo" title="Redo"><i class="fas fa-redo"></i></button>
+                                </div>
+                            </div>
+                            <div id="contentEditor" class="wp-editor" contenteditable="true" placeholder="Start writing your article here..."></div>
+                            <input type="file" id="contentImageInput" accept="image/*" style="display: none;">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Editor Sidebar -->
+                <div class="editor-sidebar">
+                    <!-- Publish Settings -->
+                    <div class="editor-sidebar-section">
+                        <div class="editor-sidebar-title">Publish</div>
+                        <div class="form-group">
+                            <label class="form-label" for="articleAuthor">Author</label>
+                            <input type="text" id="articleAuthor" class="form-input" placeholder="Reporter name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="articleCategory">Category</label>
+                            <select id="articleCategory" class="form-select" required>
+                                <option value="">Select Category</option>
+                                <option value="breaking">Breaking News</option>
+                                <option value="politics">Politics</option>
+                                <option value="business">Business</option>
+                                <option value="sports">Sports</option>
+                                <option value="technology">Technology</option>
+                                <option value="opinion">Opinion</option>
+                                <option value="lifestyle">Lifestyle</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="health">Health</option>
+                                <option value="education">Education</option>
+                                <option value="environment">Environment</option>
+                                <option value="international">International</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="editor-sidebar-section">
+                        <div class="editor-sidebar-title">Tags</div>
+                        <div class="tag-input" id="tagContainer"></div>
+                        <input type="text" id="tagInput" class="form-input" placeholder="Add tags..." style="margin-bottom: 0;">
+                        <small style="color: var(--medium-gray); font-size: 11px;">Press Enter to add tags</small>
+                    </div>
+                    
+                    <!-- Article Settings -->
+                    <div class="editor-sidebar-section">
+                        <div class="editor-sidebar-title">Settings</div>
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="isFeatured"> Featured Article
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="isBreaking"> Breaking News
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- SEO -->
+                    <div class="editor-sidebar-section">
+                        <div class="editor-sidebar-title">SEO</div>
+                        <div class="form-group">
+                            <label class="form-label" for="metaDescription">Meta Description</label>
+                            <textarea id="metaDescription" class="form-input" placeholder="Brief description for search engines..." rows="3" maxlength="160"></textarea>
+                            <small style="color: var(--medium-gray); font-size: 11px;"><span id="metaCount">0</span>/160 characters</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Editor Actions -->
+            <div class="editor-actions">
+                <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                <button type="button" class="btn btn-secondary" id="saveDraft">Save Draft</button>
+                <button type="button" class="btn btn-primary" id="publishArticle">Publish Article</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="newspaper-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <span>&copy; 2025 KenLive News</span>
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Privacy</a>
+            </div>
+            <div class="footer-right">
+                <span>FOLLOW US</span>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/Ken-livecoke/61551896525342/" class="social-link" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com/kenlive254" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@KENWAKURAYA" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK and JavaScript -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2UlXwk73QKYjvNGK8UNzLG2n8PJhKn8Y",
+            authDomain: "kenlive-58327.firebaseapp.com",
+            projectId: "kenlive-58327",
+            storageBucket: "kenlive-58327.firebasestorage.app",
+            messagingSenderId: "329627457758",
+            appId: "1:329627457758:web:21283c6371fd2f69bc0a4f",
+            measurementId: "G-2DN81FPFWM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Cloudinary configuration
+        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/danzbwfz1/image/upload';
+        const UPLOAD_PRESET = 'newspaper_unsigned';
+
+        // Global variables
+        let currentUser = null;
+        let articles = [];
+        let tags = [];
+
+        // Set current date
+        const now = new Date();
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'short',
+            day: 'numeric'
+        });
+        document.getElementById('currentDateFull').textContent = now.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        }).toUpperCase();
+
+        // Utility functions
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+
+        function formatDate(timestamp) {
+            return new Date(timestamp).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function truncateText(text, maxLength = 200) {
+            if (!text || text.length <= maxLength) return text || '';
+            return text.substring(0, maxLength) + '...';
+        }
+
+        function extractTextFromHTML(html) {
+            if (!html) return '';
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            return div.textContent || div.innerText || '';
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Cloudinary image upload
+        async function uploadImage(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', UPLOAD_PRESET);
+            formData.append('folder', 'kenlive-newspaper');
+
+            try {
+                const response = await fetch(CLOUDINARY_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Upload failed with status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                
+                return data.secure_url;
+            } catch (error) {
+                console.error('Image upload failed:', error);
+                throw new Error(`Failed to upload image: ${error.message}`);
+            }
+        }
+
+        // Authentication functions
+        async function login(email, password) {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                currentUser = userCredential.user;
+                showToast('Welcome back to KenLive!', 'success');
+                closeModal(document.getElementById('loginModal'));
+                updateUI();
+            } catch (error) {
+                console.error('Login error:', error);
+                let errorMessage = 'Login failed. Please check your credentials.';
+                
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'No admin account found with this email address.';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Incorrect password. Please try again.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Please enter a valid email address.';
+                }
+                
+                showToast(errorMessage, 'error');
+            }
+        }
+
+        async function logout() {
+            try {
+                await signOut(auth);
+                currentUser = null;
+                showToast('Logged out successfully', 'success');
+                updateUI();
+            } catch (error) {
+                console.error('Logout error:', error);
+                showToast('Logout failed. Please try again.', 'error');
+            }
+        }
+
+        // UI update functions
+        function updateUI() {
+            const adminFooterLink = document.getElementById('adminLoginFooter');
+            const adminControls = document.getElementById('adminControls');
+            
+            if (currentUser) {
+                adminFooterLink.style.display = 'none';
+                adminControls.style.display = 'inline';
+            } else {
+                adminFooterLink.style.display = 'inline';
+                adminControls.style.display = 'none';
+            }
+        }
+
+        // Modal functions
+        function openModal(modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Article functions
+        async function loadArticles() {
+            try {
+                document.getElementById('loadingSpinner').style.display = 'inline-block';
+                document.getElementById('loadingText').textContent = 'Loading today\'s news...';
+
+                const q = query(collection(db, 'articles'), orderBy('date', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                articles = [];
+                querySnapshot.forEach((doc) => {
+                    articles.push({ id: doc.id, ...doc.data() });
+                });
+
+                document.getElementById('loadingSpinner').style.display = 'none';
+
+                if (articles.length === 0) {
+                    document.getElementById('loadingText').textContent = 'Check back for the latest breaking news from Kenya...';
+                } else {
+                    displayNewspaperLayout();
+                    document.getElementById('loadingText').textContent = 'BREAKING NEWS';
+                }
+            } catch (error) {
+                console.error('Error loading articles:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('loadingText').textContent = 'Failed to load articles. Please refresh the page.';
+                showToast('Failed to load articles. Please refresh the page.', 'error');
+            }
+        }
+
+        function displayNewspaperLayout() {
+            if (articles.length === 0) return;
+
+            // Display featured/breaking news
+            const breakingNews = articles.find(article => article.isBreaking) || articles[0];
+            if (breakingNews) {
+                displayFeaturedArticle(breakingNews);
+            }
+
+            // Display articles by category
+            displayCategoryArticles('politics', 'politicsSection');
+            displayCategoryArticles('business', 'businessSection');
+            displayCategoryArticles('sports', 'sportsSection');
+        }
+
+        function displayFeaturedArticle(article) {
+            const featuredContent = document.getElementById('featuredContent');
+            featuredContent.innerHTML = `
+                <div class="featured-article" onclick="openArticle('${article.id}')">
+                    ${article.featuredImage ? `<img src="${escapeHtml(article.featuredImage)}" alt="${escapeHtml(article.title)}" class="featured-image">` : ''}
+                    <h2 class="featured-title">${escapeHtml(article.title)}</h2>
+                    <p class="featured-excerpt">${escapeHtml(truncateText(extractTextFromHTML(article.content), 200))}</p>
+                    <div class="article-meta">By ${escapeHtml(article.author)} | ${formatDate(article.date)}</div>
+                </div>
+            `;
+        }
+
+        function displayCategoryArticles(category, sectionId) {
+            const section = document.getElementById(sectionId);
+            const categoryArticles = articles.filter(article => article.category === category);
+            const content = section.querySelector('.category-content');
+            
+            if (categoryArticles.length === 0) {
+                content.innerHTML = '<div class="category-empty">No articles available in this section.</div>';
+                return;
+            }
+
+            const articlesHTML = categoryArticles.slice(0, 5).map(article => `
+                <div class="category-article" onclick="openArticle('${article.id}')">
+                    <h4 class="category-article-title">${escapeHtml(article.title)}</h4>
+                    <p class="category-article-excerpt">${escapeHtml(truncateText(extractTextFromHTML(article.content), 120))}</p>
+                    <div class="category-article-meta">By ${escapeHtml(article.author)} | ${formatDate(article.date)}</div>
+                </div>
+            `).join('');
+
+            content.innerHTML = `<div class="category-articles">${articlesHTML}</div>`;
+        }
+
+        function openArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (!article) return;
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                ${article.featuredImage ? `<img src="${escapeHtml(article.featuredImage)}" alt="${escapeHtml(article.title)}" class="full-article-image">` : ''}
+                <h1 class="full-article-title">${escapeHtml(article.title)}</h1>
+                <div class="full-article-meta">
+                    By ${escapeHtml(article.author)} | ${formatDate(article.date)} | ${escapeHtml(article.category || 'General')}
+                    ${article.tags && article.tags.length > 0 ? ` | Tags: ${article.tags.map(tag => escapeHtml(tag)).join(', ')}` : ''}
+                </div>
+                <div class="full-article-content">${article.content}</div>
+            `;
+            openModal(document.getElementById('articleModal'));
+        }
+
+        async function publishArticle(articleData) {
+            try {
+                await addDoc(collection(db, 'articles'), {
+                    ...articleData,
+                    date: Date.now()
+                });
+                showToast('Article published successfully!', 'success');
+                closeModal(document.getElementById('editorPanel'));
+                resetEditor();
+                loadArticles();
+            } catch (error) {
+                console.error('Error publishing article:', error);
+                showToast('Failed to publish article. Please try again.', 'error');
+            }
+        }
+
+        function resetEditor() {
+            document.getElementById('articleForm').reset();
+            document.getElementById('contentEditor').innerHTML = '';
+            document.getElementById('featuredImagePreview').style.display = 'none';
+            document.getElementById('featuredImageUrl').value = '';
+            document.getElementById('tagContainer').innerHTML = '';
+            tags = [];
+            updateMetaCount();
+        }
+
+        // Rich text editor functions
+        function execCommand(command, value = null) {
+            document.execCommand(command, false, value);
+            document.getElementById('contentEditor').focus();
+            updateToolbarState();
+        }
+
+        function updateToolbarState() {
+            document.querySelectorAll('.wp-toolbar-btn[data-command]').forEach(btn => {
+                const command = btn.dataset.command;
+                if (['bold', 'italic', 'underline', 'strikeThrough'].includes(command)) {
+                    btn.classList.toggle('active', document.queryCommandState(command));
+                }
+            });
+        }
+
+        function insertImageIntoContent(imageUrl) {
+            const img = `<img src="${escapeHtml(imageUrl)}" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 6px;" alt="Article image" />`;
+            document.execCommand('insertHTML', false, img);
+        }
+
+        // Tag management
+        function addTag(tagText) {
+            const trimmedTag = tagText.trim().toLowerCase();
+            if (trimmedTag && !tags.includes(trimmedTag)) {
+                tags.push(trimmedTag);
+                updateTagContainer();
+            }
+        }
+
+        function removeTag(tagToRemove) {
+            tags = tags.filter(tag => tag !== tagToRemove);
+            updateTagContainer();
+        }
+
+        function updateTagContainer() {
+            const container = document.getElementById('tagContainer');
+            container.innerHTML = tags.map(tag => `
+                <span class="tag">
+                    ${escapeHtml(tag)}
+                    <span class="tag-remove" onclick="removeTag('${escapeHtml(tag)}')">&times;</span>
+                </span>
+            `).join('');
+        }
+
+        function updateMetaCount() {
+            const metaDesc = document.getElementById('metaDescription');
+            const count = document.getElementById('metaCount');
+            count.textContent = metaDesc.value.length;
+            count.style.color = metaDesc.value.length > 160 ? 'var(--primary-red)' : 'var(--medium-gray)';
+        }
+
+        // Event listeners
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            updateUI();
+        });
+
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showToast('Please enter both email and password.', 'error');
+                return;
+            }
+            
+            login(email, password);
+        });
+
+        // Publish article
+        document.getElementById('publishArticle').addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('articleTitle').value.trim();
+            const author = document.getElementById('articleAuthor').value.trim();
+            const category = document.getElementById('articleCategory').value;
+            const content = document.getElementById('contentEditor').innerHTML.trim();
+            const featuredImage = document.getElementById('featuredImageUrl').value;
+            const metaDescription = document.getElementById('metaDescription').value.trim();
+            const isFeatured = document.getElementById('isFeatured').checked;
+            const isBreaking = document.getElementById('isBreaking').checked;
+
+            if (!title) {
+                showToast('Please enter a headline.', 'error');
+                return;
+            }
+            
+            if (!author) {
+                showToast('Please enter an author name.', 'error');
+                return;
+            }
+            
+            if (!category) {
+                showToast('Please select a category.', 'error');
+                return;
+            }
+            
+            if (!content || content === '<br>' || content === '<div><br></div>') {
+                showToast('Please enter article content.', 'error');
+                return;
+            }
+
+            const articleData = {
+                title,
+                author,
+                category,
+                content,
+                featuredImage: featuredImage || '',
+                metaDescription: metaDescription || extractTextFromHTML(content).substring(0, 160),
+                tags: tags,
+                isFeatured,
+                isBreaking
+            };
+
+            await publishArticle(articleData);
+        });
+
+        // Save draft
+        document.getElementById('saveDraft').addEventListener('click', () => {
+            const draftData = {
+                title: document.getElementById('articleTitle').value,
+                author: document.getElementById('articleAuthor').value,
+                category: document.getElementById('articleCategory').value,
+                content: document.getElementById('contentEditor').innerHTML,
+                featuredImage: document.getElementById('featuredImageUrl').value,
+                metaDescription: document.getElementById('metaDescription').value,
+                tags: tags,
+                isFeatured: document.getElementById('isFeatured').checked,
+                isBreaking: document.getElementById('isBreaking').checked
+            };
+            
+            localStorage.setItem('kenlive-draft', JSON.stringify(draftData));
+            showToast('Draft saved locally!', 'success');
+        });
+
+        // Load draft on page load
+        function loadDraft() {
+            const draft = localStorage.getItem('kenlive-draft');
+            if (draft) {
+                try {
+                    const draftData = JSON.parse(draft);
+                    document.getElementById('articleTitle').value = draftData.title || '';
+                    document.getElementById('articleAuthor').value = draftData.author || '';
+                    document.getElementById('articleCategory').value = draftData.category || '';
+                    document.getElementById('contentEditor').innerHTML = draftData.content || '';
+                    document.getElementById('featuredImageUrl').value = draftData.featuredImage || '';
+                    document.getElementById('metaDescription').value = draftData.metaDescription || '';
+                    document.getElementById('isFeatured').checked = draftData.isFeatured || false;
+                    document.getElementById('isBreaking').checked = draftData.isBreaking || false;
+                    tags = draftData.tags || [];
+                    updateTagContainer();
+                    updateMetaCount();
+                    
+                    if (draftData.featuredImage) {
+                        const preview = document.getElementById('featuredImagePreview');
+                        preview.src = draftData.featuredImage;
+                        preview.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Failed to load draft:', error);
+                }
+            }
+        }
+
+        // Footer admin links
+        document.getElementById('adminLoginFooter').addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(document.getElementById('loginModal'));
+        });
+
+        document.getElementById('newArticleFooter').addEventListener('click', (e) => {
+            e.preventDefault();
+            loadDraft();
+            openModal(document.getElementById('editorPanel'));
+        });
+
+        document.getElementById('logoutFooter').addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+        });
+
+        // Close modal buttons
+        document.getElementById('closeLogin').addEventListener('click', () => closeModal(document.getElementById('loginModal')));
+        document.getElementById('closeEditor').addEventListener('click', () => closeModal(document.getElementById('editorPanel')));
+        document.getElementById('closeModal').addEventListener('click', () => closeModal(document.getElementById('articleModal')));
+        document.getElementById('cancelEdit').addEventListener('click', () => closeModal(document.getElementById('editorPanel')));
+
+        // Close modal when clicking outside
+        [document.getElementById('loginModal'), document.getElementById('editorPanel'), document.getElementById('articleModal')].forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        // Featured image upload
+        document.getElementById('featuredImageUpload').addEventListener('click', () => {
+            document.getElementById('featuredImageInput').click();
+        });
+
+        document.getElementById('featuredImageInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('Image file size must be less than 5MB.', 'error');
+                    return;
+                }
+                
+                if (!file.type.startsWith('image/')) {
+                    showToast('Please select a valid image file.', 'error');
+                    return;
+                }
+                
+                try {
+                    showToast('Uploading image...', 'info');
+                    const imageUrl = await uploadImage(file);
+                    document.getElementById('featuredImageUrl').value = imageUrl;
+                    
+                    const preview = document.getElementById('featuredImagePreview');
+                    preview.src = imageUrl;
+                    preview.style.display = 'block';
+                    
+                    showToast('Image uploaded successfully!', 'success');
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            }
+        });
+
+        // Content image upload
+        document.getElementById('insertImageBtn').addEventListener('click', () => {
+            document.getElementById('contentImageInput').click();
+        });
+
+        document.getElementById('contentImageInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('Image file size must be less than 5MB.', 'error');
+                    return;
+                }
+                
+                if (!file.type.startsWith('image/')) {
+                    showToast('Please select a valid image file.', 'error');
+                    return;
+                }
+                
+                try {
+                    showToast('Uploading image...', 'info');
+                    const imageUrl = await uploadImage(file);
+                    insertImageIntoContent(imageUrl);
+                    showToast('Image inserted successfully!', 'success');
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            }
+        });
+
+        // Drag and drop for featured image
+        const imageUploadArea = document.getElementById('featuredImageUpload');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            imageUploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            imageUploadArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            imageUploadArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            imageUploadArea.classList.add('dragover');
+        }
+
+        function unhighlight(e) {
+            imageUploadArea.classList.remove('dragover');
+        }
+
+        imageUploadArea.addEventListener('drop', handleDrop, false);
+
+        async function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('image/')) {
+                    try {
+                        showToast('Uploading image...', 'info');
+                        const imageUrl = await uploadImage(file);
+                        document.getElementById('featuredImageUrl').value = imageUrl;
+                        
+                        const preview = document.getElementById('featuredImagePreview');
+                        preview.src = imageUrl;
+                        preview.style.display = 'block';
+                        
+                        showToast('Image uploaded successfully!', 'success');
+                    } catch (error) {
+                        showToast(error.message, 'error');
+                    }
+                } else {
+                    showToast('Please drop a valid image file.', 'error');
+                }
+            }
+        }
+
+        // WordPress-style toolbar
+        document.querySelectorAll('.wp-toolbar-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const command = btn.dataset.command;
+                const value = btn.dataset.value;
+                
+                switch(command) {
+                    case 'bold':
+                    case 'italic':
+                    case 'underline':
+                    case 'strikeThrough':
+                        execCommand(command);
+                        break;
+                    case 'h1':
+                        execCommand('formatBlock', '<h1>');
+                        break;
+                    case 'h2':
+                        execCommand('formatBlock', '<h2>');
+                        break;
+                    case 'h3':
+                        execCommand('formatBlock', '<h3>');
+                        break;
+                    case 'justifyLeft':
+                    case 'justifyCenter':
+                    case 'justifyRight':
+                    case 'justifyFull':
+                        execCommand(command);
+                        break;
+                    case 'insertUnorderedList':
+                    case 'insertOrderedList':
+                        execCommand(command);
+                        break;
+                    case 'outdent':
+                    case 'indent':
+                        execCommand(command);
+                        break;
+                    case 'createLink':
+                        const url = prompt('Enter URL:');
+                        if (url) {
+                            execCommand('createLink', url);
+                        }
+                        break;
+                    case 'unlink':
+                        execCommand('unlink');
+                        break;
+                    case 'insertHorizontalRule':
+                        execCommand('insertHorizontalRule');
+                        break;
+                    case 'formatBlock':
+                        execCommand('formatBlock', value);
+                        break;
+                    case 'removeFormat':
+                        execCommand('removeFormat');
+                        break;
+                    case 'undo':
+                        execCommand('undo');
+                        break;
+                    case 'redo':
+                        execCommand('redo');
+                        break;
+                }
+            });
+        });
+
+        // Tag input
+        document.getElementById('tagInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const tagInput = e.target;
+                addTag(tagInput.value);
+                tagInput.value = '';
+            }
+        });
+
+        // Meta description counter
+        document.getElementById('metaDescription').addEventListener('input', updateMetaCount);
+
+        // Content editor events
+        document.getElementById('contentEditor').addEventListener('keyup', updateToolbarState);
+        document.getElementById('contentEditor').addEventListener('mouseup', updateToolbarState);
+
+        // Enhanced editor functionality
+        document.getElementById('contentEditor').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                document.execCommand('insertHTML', false, '<br><br>');
+            }
+            
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
+
+            // Bold shortcut
+            if (e.key === 'b' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                execCommand('bold');
+            }
+
+            // Italic shortcut
+            if (e.key === 'i' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                execCommand('italic');
+            }
+
+            // Underline shortcut
+            if (e.key === 'u' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                execCommand('underline');
+            }
+
+            // Save shortcut
+            if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                document.getElementById('saveDraft').click();
+            }
+        });
+
+        // Prevent XSS by sanitizing editor content
+        document.getElementById('contentEditor').addEventListener('paste', (e) => {
+            e.preventDefault();
+            
+            // Get pasted data
+            const paste = (e.clipboardData || window.clipboardData).getData('text/html') || 
+                         (e.clipboardData || window.clipboardData).getData('text/plain');
+            
+            if (paste) {
+                // Basic sanitization - remove script tags and dangerous attributes
+                const sanitized = paste
+                    .replace(/<script[^>]*>.*?<\/script>/gi, '')
+                    .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
+                    .replace(/on\w+="[^"]*"/gi, '')
+                    .replace(/javascript:/gi, '');
+                
+                document.execCommand('insertHTML', false, sanitized);
+            }
+        });
+
+        // Global function for article opening
+        window.openArticle = openArticle;
+        window.removeTag = removeTag;
+
+        // Initialize app
+        loadArticles();
+        updateMetaCount();
+
+        // Auto-save draft every 30 seconds when editing
+        setInterval(() => {
+            const title = document.getElementById('articleTitle').value;
+            const content = document.getElementById('contentEditor').innerHTML;
+            
+            if (title || content) {
+                const draftData = {
+                    title,
+                    author: document.getElementById('articleAuthor').value,
+                    category: document.getElementById('articleCategory').value,
+                    content,
+                    featuredImage: document.getElementById('featuredImageUrl').value,
+                    metaDescription: document.getElementById('metaDescription').value,
+                    tags: tags,
+                    isFeatured: document.getElementById('isFeatured').checked,
+                    isBreaking: document.getElementById('isBreaking').checked,
+                    lastSaved: Date.now()
+                };
+                
+                localStorage.setItem('kenlive-draft', JSON.stringify(draftData));
+            }
+        }, 30000);
+
+        console.log('KenLive newspaper loaded successfully');
+    </script>
+</body>
+</html>
